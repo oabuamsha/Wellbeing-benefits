@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bénéfices du Bien-être au Travail</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .toggle-switch {
+            background: #f0f0f0;
+            border-radius: 50px;
+            padding: 5px;
+            display: flex;
+            position: relative;
+            width: 400px;
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            border-radius: 45px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            z-index: 2;
+            position: relative;
+        }
+
+        .toggle-option.active {
+            color: white;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 45px;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .toggle-slider.employer {
+            transform: translateX(100%);
+            background: linear-gradient(135deg, #FF6B6B, #ee5a52);
+        }
+
+        .content-area {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .employee .benefit-card {
+            border-left-color: #667eea;
+        }
+
+        .employer .benefit-card {
+            border-left-color: #FF6B6B;
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 0.1s; }
+        .benefit-card:nth-child(2) { animation-delay: 0.2s; }
+        .benefit-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .benefit-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefit-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .benefit-list li::before {
+            content: "✓";
+            color: #4ECDC4;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .stats-highlight {
+            background: linear-gradient(135deg, #ffd89b, #19547b);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .comparison-note {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toggle-switch {
+                width: 350px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>💼 Bénéfices du Bien-être au Travail</h1>
+            <p>Découvrez les avantages pour chaque partie prenante</p>
+        </header>
+
+        <div class="toggle-container">
+            <div class="toggle-switch">
+                <div class="toggle-slider" id="toggleSlider"></div>
+                <div class="toggle-option active" id="employeeToggle" onclick="showEmployee()">
+                    👩‍💼 Pour l'Employé(e)
+                </div>
+                <div class="toggle-option" id="employerToggle" onclick="showEmployer()">
+                    🏢 Pour l'Employeur
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <!-- Employee Benefits -->
+            <div id="employeeContent" class="employee">
+                <div class="stats-highlight">
+                    <span class="stats-number">2,5x</span>
+                    Plus productif quand on se sent écouté
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🎯</span>
+                        <h3 class="benefit-title">Performance & Développement</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Productivité accrue</strong> : 2,5 fois plus performant</li>
+                            <li><strong>Motivation renforcée</strong> : +37% d'engagement client</li>
+                            <li><strong>Épanouissement professionnel</strong> durable</li>
+                            <li><strong>Confiance en soi</strong> développée</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🛡️</span>
+                        <h3 class="benefit-title">Santé & Équilibre</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Réduction du burn-out</strong> et épuisement</li>
+                            <li><strong>Meilleure santé</strong> physique et mentale</li>
+                            <li><strong>Carrière plus durable</strong> à long terme</li>
+                            <li><strong>Équilibre vie pro/perso</strong> amélioré</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🚀</span>
+                        <h3 class="benefit-title">Développement Personnel</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Sentiment d'être écouté</strong> et valorisé</li>
+                            <li><strong>Qualité de vie</strong> globale améliorée</li>
+                            <li><strong>Opportunités de croissance</strong> accrues</li>
+                            <li><strong>Satisfaction professionnelle</strong> renforcée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employer Benefits -->
+            <div id="employerContent" class="employer hidden">
+                <div class="stats-highlight">
+                    <span class="stats-number">+37%</span>
+                    D'efforts pour la satisfaction client
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <span class="benefit-icon">💰</span>
+                        <h3 class="benefit-title">Rentabilité & Performance</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Productivité multipliée par 2,5</strong> avec des employés épanouis</li>
+                            <li><strong>Service client supérieur</strong> : +37% d'efforts</li>
+                            <li><strong>Réduction des coûts cachés</strong> (absentéisme)</li>
+                            <li><strong>ROI positif</strong> sur investissement bien-être</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">👥</span>
+                        <h3 class="benefit-title">Gestion des Talents</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Diminution drastique du turnover</strong> personnel</li>
+                            <li><strong>Rétention des talents</strong> et fidélisation</li>
+                            <li><strong>Attraction de nouveaux talents</strong> qualifiés</li>
+                            <li><strong>Réputation d'employeur</strong> renforcée</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🎯</span>
+                        <h3 class="benefit-title">Durabilité Organisationnelle</h3>
+                        <ul class="benefit-list">
+                            <li><strong>Performance globale</strong> entreprise renforcée</li>
+                            <li><strong>Baromètre de durabilité</strong> organisationnelle</li>
+                            <li><strong>Prévention des problèmes</strong> de santé</li>
+                            <li><strong>Culture d'entreprise</strong> positive</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-note">
+                <strong>💡 Astuce :</strong> Utilisez le bouton de basculement ci-dessus pour comparer les bénéfices des deux perspectives !
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showEmployee() {
+            document.getElementById('employeeContent').classList.remove('hidden');
+            document.getElementById('employerContent').classList.add('hidden');
+            document.getElementById('employeeToggle').classList.add('active');
+            document.getElementById('employerToggle').classList.remove('active');
+            document.getElementById('toggleSlider').classList.remove('employer');
+        }
+
+        function showEmployer() {
+            document.getElementById('employerContent').classList.remove('hidden');
+            document.getElementById('employeeContent').classList.add('hidden');
+            document.getElementById('employerToggle').classList.add('active');
+            document.getElementById('employeeToggle').classList.remove('active');
+            document.getElementById('toggleSlider').classList.add('employer');
+        }
+
+        // Add some interactivity to the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.benefit-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
